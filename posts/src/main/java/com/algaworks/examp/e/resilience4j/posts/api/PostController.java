@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -41,12 +40,10 @@ public class PostController {
 	}
 
 	private PostModel convertPostToModel(Post post) {
-		return findEditor(post.getEditorId())
-				.map(editor-> PostModel.of(post, editor))
-				.orElseThrow();
+		return PostModel.of(post, findEditor(post.getEditorId()));
 	}
 
-	private Optional<EditorModel> findEditor(Long editorId) {
+	private EditorModel findEditor(Long editorId) {
 		return editors.getOne(editorId);
 	}
 }

@@ -10,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class EditorClientImpl implements EditorClient {
@@ -24,14 +23,13 @@ public class EditorClientImpl implements EditorClient {
 	}
 
 	@Override
-	public Optional<EditorModel> getOne(Long id) {
+	public EditorModel getOne(Long id) {
 		try {
 			logger.info("Buscando editor por id "  + id);
-			final EditorModel editor = restTemplate.getForObject(editorApiUrl + "/" + id, EditorModel.class);
-			return Optional.ofNullable(editor);
+			return restTemplate.getForObject(editorApiUrl + "/" + id, EditorModel.class);
 		} catch (Exception e) {
 			logger.error("Erro ao buscar editor");
-			return Optional.empty();
+			throw e;
 		}
 	}
 
