@@ -2,6 +2,7 @@ package com.algaworks.examp.e.resilience4j.posts.infra.client;
 
 import com.algaworks.examp.e.resilience4j.posts.client.editors.EditorClient;
 import com.algaworks.examp.e.resilience4j.posts.client.editors.EditorModel;
+import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -17,16 +18,19 @@ public class EditorClientImpl implements EditorClient {
 	private final RestTemplate restTemplate;
 	private final String editorApiUrl = "http://localhost:8090/editors";
 	private final Logger logger = LoggerFactory.getLogger(EditorClientImpl.class);
+	private final CircuitBreaker circuitBreaker;
 
 	public EditorClientImpl(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
+		this.circuitBreaker = CircuitBreaker.ofDefaults("editors");
 	}
 
 	@Override
 	public EditorModel getOne(Long id) {
 		try {
 			logger.info("Buscando editor por id "  + id);
-			return restTemplate.getForObject(editorApiUrl + "/" + id, EditorModel.class);
+			return circuitBreaker.executeSupplier(()-> 
+					restTemplate.getForObject(editorApiUrl + "/" + id, EditorModel.class));
 		} catch (Exception e) {
 			logger.error("Erro ao buscar editor");
 			throw e;
