@@ -25,7 +25,6 @@ public class EditorClientImpl implements EditorClient {
 		this.restTemplate = restTemplate;}
 
 	@Override
-	@CircuitBreaker(name = "editors", fallbackMethod = "getOneInCache")
 	public EditorModel getOne(Long id) {
 		try {
 			logger.info("Buscando editor por id "  + id);
@@ -49,9 +48,5 @@ public class EditorClientImpl implements EditorClient {
 			logger.error("Erro ao buscar editores");
 			return new ArrayList<>();
 		}
-	}
-
-	private EditorModel getOneInCache(Long id, Exception e) {
-		return new EditorModel(id, "");
 	}
 }
