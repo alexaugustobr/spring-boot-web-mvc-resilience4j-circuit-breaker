@@ -2,12 +2,12 @@ package com.algaworks.examp.e.resilience4j.posts.infra.client;
 
 import com.algaworks.examp.e.resilience4j.posts.client.editors.EditorClient;
 import com.algaworks.examp.e.resilience4j.posts.client.editors.EditorModel;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,9 +20,11 @@ public class EditorClientImpl implements EditorClient {
 	private final Logger logger = LoggerFactory.getLogger(EditorClientImpl.class);
 
 	public EditorClientImpl(RestTemplate restTemplate) {
-		this.restTemplate = restTemplate;}
+		this.restTemplate = restTemplate;
+	}
 
 	@Override
+	@CircuitBreaker(name = "editors", fallbackMethod = "getOneInCache")
 	public EditorModel getOne(Long id) {
 		try {
 			logger.info("Buscando editor por id "  + id);
@@ -46,5 +48,9 @@ public class EditorClientImpl implements EditorClient {
 			logger.error("Erro ao buscar editores");
 			return new ArrayList<>();
 		}
+	}
+
+	private EditorModel getOneInCache(Long id, Exception e) {
+		return new EditorModel(id, "Cache");
 	}
 }
