@@ -1,0 +1,10 @@
+resilience4j:
+  circuitbreaker:
+    instances:
+      avaliacaoCB:
+        failureRateThreshold: 50 #Padrão
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 5
+        #waitDurationInOpenState: 30s
+        #maxWaitDurationInHalfOpenState
