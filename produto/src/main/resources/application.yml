@@ -3,8 +3,8 @@ resilience4j:
     instances:
       avaliacaoCB:
         failureRateThreshold: 50 #Padrao
-        slidingWindowSize: 10
-        minimumNumberOfCalls: 5
+        slidingWindowSize: 8
+        minimumNumberOfCalls: 4
         permittedNumberOfCallsInHalfOpenState: 5
-        #waitDurationInOpenState: 30s
+        waitDurationInOpenState: 60s
         #maxWaitDurationInHalfOpenState

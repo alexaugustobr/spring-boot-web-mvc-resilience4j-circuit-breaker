@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,9 +39,10 @@ public class AvaliacaoClientImpl implements AvaliacaoClient {
 
 		CircuitBreakerConfig config = CircuitBreakerConfig.custom()
 				.failureRateThreshold(50)
-				.slidingWindowSize(10)
-				.minimumNumberOfCalls(5)
+				.slidingWindowSize(8)
+				.minimumNumberOfCalls(4)
 				.permittedNumberOfCallsInHalfOpenState(5)
+				.waitDurationInOpenState(Duration.ofMinutes(1))
 				.build();
 		
 		this.circuitBreaker = CircuitBreaker.of("avaliacaoCB", config);
@@ -69,8 +71,15 @@ public class AvaliacaoClientImpl implements AvaliacaoClient {
 		final Map<String, Object> parametros = new HashMap<>();
 		parametros.put("produtoId", produtoId);
 
-		logger.info("Buscando avaliacoes");
-		final var avaliacoes = restTemplate.getForObject(API_URL, AvaliacaoModel[].class, parametros);
+		logger.info("Buscando avaliações");
+		final AvaliacaoModel[] avaliacoes;
+		
+		try {
+			avaliacoes = restTemplate.getForObject(API_URL, AvaliacaoModel[].class, parametros);
+		} catch (Exception e) {
+			logger.error("Erro ao buscar avaliações");
+			throw e;
+		}
 
 		atualizarCache(produtoId, avaliacoes);
 
@@ -83,7 +92,7 @@ public class AvaliacaoClientImpl implements AvaliacaoClient {
 	}
 
 	private List<AvaliacaoModel> buscarTodosPorProdutoNoCache(Long produtoId, Throwable e) {
-		logger.info("Buscando avaliacoes no cache");
+		logger.warn("Buscando avaliações no cache");
 		return CACHE.getOrDefault(produtoId, new ArrayList<>());
 	}
 	
