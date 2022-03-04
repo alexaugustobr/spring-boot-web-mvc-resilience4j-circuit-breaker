@@ -32,7 +32,6 @@ public class AvaliacaoClientImpl implements AvaliacaoClient {
 	@Override
 	public List<AvaliacaoModel> buscarTodosPorProduto(Long produtoId) {
 		final List<AvaliacaoModel> avaliacoes = executarRequisicao(produtoId);
-
 		return avaliacoes;
 	}
 
