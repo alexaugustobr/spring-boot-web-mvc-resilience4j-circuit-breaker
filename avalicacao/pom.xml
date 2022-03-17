@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.algaworks.example</groupId>
-	<artifactId>algaworks-resilience4j-avaliacao</artifactId>
+	<artifactId>algaworks-ratelimit-avaliacao</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>API Avaliação</name>
 	<description>Spring Boot MVC Web Resilience4j Demo - Avaliacao API</description>
