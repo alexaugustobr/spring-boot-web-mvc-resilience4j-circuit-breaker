@@ -1,0 +1,43 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    prometheus:
+      enabled: 'true'
+bucket4j:
+  enabled: true
+  filters:
+    - cache-name: buckets
+      url: .*
+      rate-limits:
+        - bandwidths:
+            - capacity: 10
+              time: 360
+              unit: seconds
+spring:
+  main:
+    allow-bean-definition-overriding: 'true'
+#  cache:
+#    type: jcache
+#    jcache:
+#      provider: com.hazelcast.cache.impl.HazelcastServerCachingProvider
+#      config: classpath:hazelcast.xml
+  
+  redis:
+    password: ''
+    port: '16379'
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:13306/awecdatabase?useSSL=false&zeroDateTimeBehavior=convertToNull&useLegacyDatetimeCode=false&serverTimezone=UTC
+    password: ''
+  jpa:
+    properties:
+      hibernate:
+        format_sql: 'false'
+        use_sql_comments: 'false'
+        show_sql: 'true'
+server:
+  port: '8080'
+  
