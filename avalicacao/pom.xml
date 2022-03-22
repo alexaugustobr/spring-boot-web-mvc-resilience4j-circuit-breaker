@@ -21,23 +21,39 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-cache</artifactId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>com.giffing.bucket4j.spring.boot.starter</groupId>
 			<artifactId>bucket4j-spring-boot-starter</artifactId>
 			<version>0.5.2</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.github.vladimir-bukhtoyarov</groupId>
+			<artifactId>bucket4j-hazelcast</artifactId>
+			<version>7.3.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.hazelcast</groupId>
 			<artifactId>hazelcast</artifactId>
+			<version>5.1</version>
 		</dependency>
-		<dependency>
-			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast-spring</artifactId>
-		</dependency>
+		
+<!--		<dependency>-->
+<!--			<groupId>com.hazelcast</groupId>-->
+<!--			<artifactId>hazelcast-spring</artifactId>-->
+<!--		</dependency>-->
+
+		<!--		<dependency>-->
+		<!--			<groupId>org.springframework.boot</groupId>-->
+		<!--			<artifactId>spring-boot-starter-cache</artifactId>-->
+		<!--		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

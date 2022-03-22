@@ -10,18 +10,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/avaliacaos")
+@RequestMapping("/avaliacoes")
 public class AvaliacaoController {
 	
-	private final AvaliacaoRepository avaliacaos;
-
-	public AvaliacaoController(AvaliacaoRepository avaliacaos) {
-		this.avaliacaos = avaliacaos;
+	private final AvaliacaoRepository avaliacoes;
+	
+	public AvaliacaoController(AvaliacaoRepository avaliacoes) {
+		this.avaliacoes = avaliacoes;
 	}
 
 	@GetMapping
 	public List<AvaliacaoModel> buscarPorProduto(@RequestParam Long produtoId) {
-		return avaliacaos.getAll()
+		return avaliacoes.getAll()
 				.stream()
 				.filter(avaliacao -> avaliacao.getProdutoId().equals(produtoId))
 				.map(AvaliacaoModel::of)
