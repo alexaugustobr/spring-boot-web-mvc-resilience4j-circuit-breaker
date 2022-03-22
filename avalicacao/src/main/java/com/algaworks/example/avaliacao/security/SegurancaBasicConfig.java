@@ -16,12 +16,12 @@ public class SegurancaBasicConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("cliente1")
+                .withUser("joao")
                 .password("{noop}123456")
                 .authorities("ROLE_CLIENTE");
 
         auth.inMemoryAuthentication()
-                .withUser("cliente2")
+                .withUser("maria")
                 .password("{noop}123456")
                 .authorities("ROLE_CLIENTE");
     }

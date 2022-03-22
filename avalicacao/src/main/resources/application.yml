@@ -1,9 +1,13 @@
 spring:
   main:
     allow-bean-definition-overriding: 'true'
+  cache:
+    type: jcache
+    jcache:
+      provider: com.hazelcast.cache.impl.HazelcastServerCachingProvider
+      config: classpath:hazelcast.xml
 server:
   port: '8080'
-
 bucket4j:
   enabled: true
   filters:
@@ -17,3 +21,4 @@ bucket4j:
             - capacity: 5
               time: 1
               unit: minutes
+              
