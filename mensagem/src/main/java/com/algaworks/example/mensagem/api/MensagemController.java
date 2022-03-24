@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -31,13 +32,15 @@ public class MensagemController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Mensagem criarNovo(Mensagem mensagem) {
-		mensagem.setUsuario(segurancaService.getUsuario());
-		return mensagemRepository.save(mensagem);
+	public Mensagem criarNovo(@RequestBody @Valid MensagemInput mensagemInput) {
+		return mensagemRepository.save(new Mensagem(
+				segurancaService.getUsuario(),
+				mensagemInput.getConteudo()
+		));
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Mensagem> buscarPorId(@PathVariable Long id) {
-		return mensagemRepository.findById(id);
+	public Mensagem buscarPorId(@PathVariable Long id) {
+		return mensagemRepository.findById(id).orElseThrow(RecursoNaoEncontradoException::new);
 	}
 }

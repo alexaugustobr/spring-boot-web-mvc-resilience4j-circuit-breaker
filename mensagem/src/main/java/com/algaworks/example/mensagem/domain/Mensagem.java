@@ -1,18 +1,25 @@
 package com.algaworks.example.mensagem.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Mensagem {
 
 	@Id
+	@GeneratedValue
 	private Long id;
 	private String usuario;
 	private String conteudo;
 
 	public Mensagem() {
 		
+	}
+
+	public Mensagem(String usuario, String conteudo) {
+		this.usuario = usuario;
+		this.conteudo = conteudo;
 	}
 
 	public Mensagem(Long id, String usuario, String conteudo) {
