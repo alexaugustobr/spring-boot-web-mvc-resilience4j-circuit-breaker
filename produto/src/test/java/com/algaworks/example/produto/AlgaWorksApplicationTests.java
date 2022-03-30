@@ -44,6 +44,7 @@ public class AlgaWorksApplicationTests {
 		RestAssured.port = port;
 		RestAssured.basePath = "/produtos";
 
+		//Busca instância gerada no YML
 		avaliacaoCB = circuitBreakerRegistry.circuitBreaker("avaliacaoCB");
 	}
 
