@@ -16,12 +16,21 @@ spring:
     allow-bean-definition-overriding: true
 bucket4j:
   enabled: true
-  filter-method: servlet #muito importante, web/flux
   filters:
     - cache-name: mensagemRateLimit
-      url: .*
+      filter-method: servlet
+      url: /mensagens*
+      filter-order: 100
       rate-limits:
-        - bandwidths:
+        - execute-condition: "@segurancaService.estaAutenticado()"
+          expression: "@segurancaService.getUsuario()"
+          bandwidths:
+            - capacity: 20
+              time: 1
+              unit: minutes
+        - execute-condition: "@segurancaService.naoEstaAutenticado()"
+          expression: "getRemoteAddr()"
+          bandwidths:
             - capacity: 5
               time: 1
               unit: minutes

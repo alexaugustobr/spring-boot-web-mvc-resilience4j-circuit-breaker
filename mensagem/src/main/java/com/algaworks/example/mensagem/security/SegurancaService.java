@@ -11,4 +11,16 @@ public class SegurancaService {
 		return context.getAuthentication().getName();
 	}
 
+	public boolean estaAutenticado() {
+		if (getUsuario().equals("anonymousUser")) {
+			return false;
+		}
+		var context = SecurityContextHolder.getContext();
+		return context.getAuthentication().isAuthenticated();
+	}
+
+	public boolean naoEstaAutenticado() {
+		return !estaAutenticado();
+	}
+
 }
