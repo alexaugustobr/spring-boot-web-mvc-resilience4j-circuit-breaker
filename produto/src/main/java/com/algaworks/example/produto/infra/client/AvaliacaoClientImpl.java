@@ -58,7 +58,7 @@ public class AvaliacaoClientImpl implements AvaliacaoClient {
 		return Arrays.asList(avaliacoes);
 	}
 
-	private List<AvaliacaoModel> buscarNoCache(Long produtoId, Throwable e) {
+	public List<AvaliacaoModel> buscarNoCache(Long produtoId, Throwable e) {
 		logger.warn("Buscando avaliações no cache");
 		return CACHE.getOrDefault(produtoId, new ArrayList<>());
 	}
