@@ -1,6 +1,7 @@
 package com.algaworks.example.mensagem.api;
 
 
+import com.algaworks.example.config.RecursoNaoEncontradoException;
 import com.algaworks.example.mensagem.domain.Mensagem;
 import com.algaworks.example.mensagem.domain.MensagemRepository;
 import com.algaworks.example.mensagem.security.SegurancaService;
@@ -10,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/mensagens")

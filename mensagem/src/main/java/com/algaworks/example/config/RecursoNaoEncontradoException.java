@@ -1,4 +1,4 @@
-package com.algaworks.example.mensagem.api;
+package com.algaworks.example.config;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

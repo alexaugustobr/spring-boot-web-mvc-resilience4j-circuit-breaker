@@ -43,21 +43,21 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.giffing.bucket4j.spring.boot.starter</groupId>
-			<artifactId>bucket4j-spring-boot-starter</artifactId>
-			<version>0.5.2</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.giffing.bucket4j.spring.boot.starter</groupId>-->
+<!--			<artifactId>bucket4j-spring-boot-starter</artifactId>-->
+<!--			<version>0.5.2</version>-->
+<!--		</dependency>-->
 		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-cache</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-cache</artifactId>-->
+<!--		</dependency>-->
 
-		<dependency>
-			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast-spring</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.hazelcast</groupId>-->
+<!--			<artifactId>hazelcast-spring</artifactId>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

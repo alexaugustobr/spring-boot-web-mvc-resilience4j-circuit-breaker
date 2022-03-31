@@ -1,4 +1,4 @@
-package com.algaworks.example.mensagem;
+package com.algaworks.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
