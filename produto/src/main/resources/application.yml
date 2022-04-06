@@ -3,3 +3,4 @@ resilience4j.circuitbreaker:
     avaliacaoCB:
       minimumNumberOfCalls: 4
       slidingWindowSize: 8
+      
