@@ -4,3 +4,21 @@ resilience4j.circuitbreaker:
       minimumNumberOfCalls: 4
       slidingWindowSize: 8
       
+spring:
+  application:
+    name: produtos
+    
+management:
+  endpoints:
+    enabled-by-default: false # Desativa todos
+    web: #Exibe no endpoint /actuator
+      enabled: true
+      exposure:
+        include: 'health,prometheus'
+  endpoint:
+    health:
+      enabled: true
+      show-details: always #sempre exibe
+    prometheus: 
+      enabled: true
+    

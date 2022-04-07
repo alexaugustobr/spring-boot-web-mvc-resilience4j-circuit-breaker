@@ -18,7 +18,7 @@ public class AvaliacaoClientImpl implements AvaliacaoClient {
 	private final RestTemplate restTemplate;
 	
 	private final static String API_URL = UriComponentsBuilder
-			.fromHttpUrl("http://localhost:8090/avaliacaos")
+			.fromHttpUrl("http://localhost:8090/avaliacoes")
 			.queryParam("produtoId", "{produtoId}")
 			.encode()
 			.toUriString();
