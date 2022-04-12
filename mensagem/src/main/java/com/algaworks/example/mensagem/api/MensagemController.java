@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/mensagens")
@@ -41,6 +40,7 @@ public class MensagemController {
 
 	@GetMapping("/{id}")
 	public Mensagem buscarPorId(@PathVariable Long id) {
-		return mensagemRepository.findById(id).orElseThrow(RecursoNaoEncontradoException::new);
+		return mensagemRepository.findById(id)
+				.orElseThrow(RecursoNaoEncontradoException::new);
 	}
 }

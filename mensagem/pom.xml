@@ -9,10 +9,10 @@
 		<relativePath/>
 	</parent>
 	<groupId>com.algaworks.example</groupId>
-	<artifactId>algaworks-ratelimit-mensagem</artifactId>
+	<artifactId>algaworks-actuator-mensagem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>API Avaliação</name>
-	<description>Spring Boot Bucket4J Demo - Mensagem API</description>
+	<description>Spring Boot Demo - Mensagem API</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
