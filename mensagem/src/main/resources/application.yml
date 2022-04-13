@@ -7,11 +7,6 @@ spring:
     show-sql: 'true'
     hibernate:
       ddl-auto: update
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "metrics"
 
 integracao:
   api:
@@ -20,3 +15,4 @@ integracao:
       paises-path: '/paises' #mock
       #url: 'https://servicodados.ibge.gov.br' #real
       #paises-path: '/api/v1/localidades/paises' #real
+      
