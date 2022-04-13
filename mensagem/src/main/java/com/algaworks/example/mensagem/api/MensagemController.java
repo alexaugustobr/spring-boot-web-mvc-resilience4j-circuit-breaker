@@ -3,6 +3,7 @@ package com.algaworks.example.mensagem.api;
 
 import com.algaworks.example.mensagem.domain.Mensagem;
 import com.algaworks.example.mensagem.domain.MensagemRepository;
+import com.algaworks.example.mensagem.domain.Usuario;
 import com.algaworks.example.mensagem.security.SegurancaService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,22 +26,22 @@ public class MensagemController {
 	}
 
 	@GetMapping
-	public Page<Mensagem> buscarPaginado(Pageable pageable) {
-		return mensagemRepository.findAll(pageable);
+	public Page<MensagemResponse> buscarPaginado(Pageable pageable) {
+		return mensagemRepository.findAll(pageable)
+				.map(MensagemResponse::daMensagem);
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Mensagem criarNovo(@RequestBody @Valid MensagemInput mensagemInput) {
-		return mensagemRepository.save(new Mensagem(
-				segurancaService.getUsuario(),
-				mensagemInput.getConteudo()
-		));
+	public MensagemResponse criarNovo(@RequestBody @Valid MensagemRequest mensagemRequest) {
+		final Usuario autor = segurancaService.getUsuarioOuFalhe();
+		final Mensagem mensagem = mensagemRequest.converterParaUsuario(autor);
+		return MensagemResponse.daMensagem(mensagemRepository.save(mensagem));
 	}
 
 	@GetMapping("/{id}")
-	public Mensagem buscarPorId(@PathVariable Long id) {
-		return mensagemRepository.findById(id)
-				.orElseThrow(RecursoNaoEncontradoException::new);
+	public MensagemResponse buscarPorId(@PathVariable Long id) {
+		return MensagemResponse.daMensagem(mensagemRepository.findById(id)
+				.orElseThrow(RecursoNaoEncontradoException::new));
 	}
 }

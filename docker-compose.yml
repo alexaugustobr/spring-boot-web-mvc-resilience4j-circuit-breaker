@@ -14,7 +14,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ""
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-      MYSQL_DATABASE: "awmensagens"
+      MYSQL_DATABASE: "algamensagens"
     ports:
       - "3306:3306"
     networks:

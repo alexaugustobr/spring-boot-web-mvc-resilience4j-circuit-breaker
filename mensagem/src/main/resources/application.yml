@@ -1,9 +1,22 @@
 spring:
   datasource:
     username: root
-    url: jdbc:mysql://localhost:3306/awmensagens?createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/algamensagens?createDatabaseIfNotExist=true&serverTimezone=UTC
     password:
   jpa:
     show-sql: 'true'
     hibernate:
       ddl-auto: update
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "metrics"
+
+integracao:
+  api:
+    localidades:
+      url: 'http://localhost:3000' #mock
+      paises-path: '/paises' #mock
+      #url: 'https://servicodados.ibge.gov.br' #real
+      #paises-path: '/api/v1/localidades/paises' #real

@@ -1,30 +1,46 @@
 package com.algaworks.example.mensagem.domain;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import java.time.OffsetDateTime;
 
 @Entity
 public class Mensagem {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String usuario;
+	
+	@CreatedBy
+	@ManyToOne
+	private Usuario autor;
+	
+	@CreationTimestamp
+	@Column(nullable = false, columnDefinition = "datetime")
+	private OffsetDateTime dataHoraCriacao;
+	
 	private String conteudo;
 
 	public Mensagem() {
 		
 	}
 
-	public Mensagem(String usuario, String conteudo) {
-		this.usuario = usuario;
+	public Mensagem(Usuario autor, String conteudo) {
+		this.autor = autor;
 		this.conteudo = conteudo;
 	}
 
-	public Mensagem(Long id, String usuario, String conteudo) {
+	public Mensagem(Long id, Usuario autor, String conteudo) {
 		this.id = id;
-		this.usuario = usuario;
+		this.autor = autor;
 		this.conteudo = conteudo;
 	}
 
@@ -36,12 +52,12 @@ public class Mensagem {
 		this.id = id;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	public Usuario getAutor() {
+		return autor;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setAutor(Usuario autor) {
+		this.autor = autor;
 	}
 
 	public String getConteudo() {
@@ -50,5 +66,13 @@ public class Mensagem {
 
 	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
+	}
+
+	public OffsetDateTime getDataHoraCriacao() {
+		return dataHoraCriacao;
+	}
+
+	public void setDataHoraCriacao(OffsetDateTime dataHoraCriacao) {
+		this.dataHoraCriacao = dataHoraCriacao;
 	}
 }
