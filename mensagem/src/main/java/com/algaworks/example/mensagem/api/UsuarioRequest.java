@@ -3,7 +3,6 @@ package com.algaworks.example.mensagem.api;
 import com.algaworks.example.mensagem.domain.Usuario;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 public class UsuarioRequest {
 
