@@ -33,7 +33,9 @@ public class IBGELocalidadesClient {
 			return new ArrayList<>();
 		}
 		
-		return Arrays.stream(paisAPIResponse).map(PaisResponse::deIBGEPais).collect(Collectors.toList());
+		return Arrays.stream(paisAPIResponse)
+				.map(PaisResponse::deIBGEPais)
+				.collect(Collectors.toList());
 	}
 	
 }
