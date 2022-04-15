@@ -5,10 +5,6 @@ import com.algaworks.example.mensagem.domain.Mensagem;
 import com.algaworks.example.mensagem.domain.MensagemRepository;
 import com.algaworks.example.mensagem.domain.Usuario;
 import com.algaworks.example.mensagem.security.SegurancaService;
-import io.micrometer.core.annotation.Counted;
-import io.micrometer.core.annotation.Timed;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -26,7 +22,6 @@ import javax.validation.Valid;
 @RequestMapping("/mensagens")
 public class MensagemController {
 	
-	private final Logger log = LoggerFactory.getLogger(MensagemController.class);
 	private final MensagemRepository mensagemRepository;
 	private final SegurancaService segurancaService;
 
@@ -37,8 +32,6 @@ public class MensagemController {
 	}
 
 	@GetMapping
-	@Counted(value = "mensagem.counter.buscarPaginado")
-	@Timed(value = "mensagem.timer.buscarPaginado", longTask = true)
 	public Page<MensagemResponse> buscarPaginado(Pageable pageable) {
 		return mensagemRepository.findAll(pageable)
 				.map(MensagemResponse::daMensagem);
@@ -46,16 +39,9 @@ public class MensagemController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	@Counted(value = "mensagem.counter.criarNovo")
-	@Timed(value = "mensagem.timer.criarNovo", longTask = true)
 	public MensagemResponse criarNovo(@RequestBody @Valid MensagemRequest mensagemRequest) {
 		final Usuario autor = segurancaService.getUsuarioOuFalhe();
 		final Mensagem mensagem = mensagemRequest.converterParaUsuario(autor);
-
-		if (log.isDebugEnabled()){
-			log.debug("Nova mensagem criada.");
-		}
-		
 		return MensagemResponse.daMensagem(mensagemRepository.save(mensagem));
 	}
 

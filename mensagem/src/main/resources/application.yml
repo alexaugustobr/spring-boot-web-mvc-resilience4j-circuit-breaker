@@ -1,51 +1,19 @@
 spring:
   datasource:
     username: root
-    url: jdbc:mysql://localhost:3306/algamensagens123456?createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/algamensagens?createDatabaseIfNotExist=true&serverTimezone=UTC
     password:
   jpa:
     show-sql: 'true'
     hibernate:
       ddl-auto: update
-    properties:
-      "[hibernate.generate_statistics]": true
   profiles:
-    active: prod
+    active: 
+      - dev
+      - jpa
 
 integracao:
   api:
     localidades:
       url: 'http://localhost:3000'
       paises-path: '/paises'
-    
-management:
-  server:
-    port: 8081
-  endpoints:
-    enabled-by-default: false 
-    web:
-      exposure:
-        include: "info,health,metrics,auditevents,usuarios,loggers"
-    jmx:
-      exposure:
-        include: "info,health,metrics"
-  endpoint:
-    info:
-      enabled: true
-    health:
-      enabled: true
-      show-details: when-authorized
-      roles: 'ACTUATOR'
-    metrics:
-      enabled: true
-    auditevents:
-      enabled: true
-    loggers:
-      enabled: true
-  health:
-    diskspace:
-      enabled: false
-  metrics:
-    tags:
-      regiao: "us-east-1"
-      env: "prod"
