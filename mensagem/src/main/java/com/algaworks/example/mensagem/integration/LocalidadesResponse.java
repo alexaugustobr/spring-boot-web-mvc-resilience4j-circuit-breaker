@@ -2,7 +2,7 @@ package com.algaworks.example.mensagem.integration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class IBGEPaisResponse {
+public class LocalidadesResponse {
 	
 	private PaisId id;
 	private String nome;

@@ -26,7 +26,7 @@ public class PrimeiroUsuarioApplicationRunner implements ApplicationRunner {
 		if (usuarioRepository.count() != 0) {
 			return;
 		}
-		logger.info("Nenhum usuário encontrado, cadastrando usuário padrão.");
+		logger.info("Nenhum usuário encontrado, cadastrando usuários padrão.");
 		
 		usuarioRepository.save(
 				new Usuario(
@@ -35,6 +35,16 @@ public class PrimeiroUsuarioApplicationRunner implements ApplicationRunner {
 						passwordEncoder.encode("admin"),
 						"Brasil",
 						Usuario.Permissao.ADMIN
+				)
+		);
+
+		usuarioRepository.save(
+				new Usuario(
+						"Cliente",
+						"cliente@email.com",
+						passwordEncoder.encode("123"),
+						"Brasil",
+						Usuario.Permissao.CLIENTE
 				)
 		);
 	}

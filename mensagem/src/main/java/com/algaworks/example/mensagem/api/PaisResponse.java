@@ -1,6 +1,6 @@
 package com.algaworks.example.mensagem.api;
 
-import com.algaworks.example.mensagem.integration.IBGEPaisResponse;
+import com.algaworks.example.mensagem.integration.LocalidadesResponse;
 
 public class PaisResponse {
 	
@@ -20,10 +20,10 @@ public class PaisResponse {
 		return id;
 	}
 
-	public static PaisResponse deIBGEPais(IBGEPaisResponse ibgePaisResponse) {
+	public static PaisResponse deLocalidadesResponse(LocalidadesResponse localidadesResponse) {
 		return new PaisResponse(
-				ibgePaisResponse.getId().getM49(),
-				ibgePaisResponse.getNome()
+				localidadesResponse.getId().getM49(),
+				localidadesResponse.getNome()
 		);
 	}
 }

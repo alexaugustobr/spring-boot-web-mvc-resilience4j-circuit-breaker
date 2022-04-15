@@ -1,16 +1,15 @@
 package com.algaworks.example.mensagem.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
@@ -18,19 +17,32 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SegurancaBasicConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private JPAUsuarioDetailsService userDetailsService;
+    
+    @Autowired
+    private InMemoryUserDetailsManager inMemoryUserDetailsManager;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder);
+        authenticationManagerBuilder
+                .userDetailsService(inMemoryUserDetailsManager)
+                .passwordEncoder(passwordEncoder);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.userDetailsService(userDetailsService)
-            .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/**").permitAll()
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.GET,"/mensagens/**","/paises").permitAll()
                 .antMatchers(HttpMethod.POST, "/mensagens").hasAnyRole("CLIENTE","ADMIN")
+                .antMatchers(HttpMethod.GET, "/actuator/health", "/actuator/info").permitAll()
+                .antMatchers(HttpMethod.GET, "/actuator/**").hasRole("ACTUATOR")
+                .antMatchers(HttpMethod.POST, "/actuator/**").hasRole("ACTUATOR")
             .and()
                 .csrf().disable()
                 .httpBasic();
